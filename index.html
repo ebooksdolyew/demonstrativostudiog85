@@ -165,7 +165,18 @@ body.pointer-fine .spotlight{opacity:1}
 .btn--pill:hover{color:#000;border-color:var(--paper);transform:translateY(-2px);box-shadow:none}
 
 .nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
-.nav__burger i{display:block;width:24px;height:2px;background:var(--paper);transition:transform .4s var(--ease),opacity .3s}
+.nav__burger i{display:block;width:24px;height:2px;background:var(--paper);transition:transform .4s var(--ease),opacity .3s,background .4s}
+
+/* no topo a hero é clara: logo, links, botão e burger em versão escura */
+.nav:not(.stuck) .nav__logo{filter:invert(1)}
+.nav:not(.stuck) .nav__burger:not(.open) i{background:#0d0d0d}
+@media(min-width:1101px){
+  .nav:not(.stuck) .nav__links{background:rgba(255,255,255,.5);border-color:rgba(0,0,0,.1);
+    box-shadow:0 8px 32px -14px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.6)}
+  .nav:not(.stuck) .nav__links a{color:#3a3a3c}
+  .nav:not(.stuck) .nav__links a:hover{color:#000}
+  .nav:not(.stuck) .btn--pill{color:#0d0d0d;border-color:rgba(0,0,0,.28)}
+}
 .nav__burger.open i:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__burger.open i:nth-child(2){opacity:0}
 .nav__burger.open i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -179,12 +190,12 @@ body.pointer-fine .spotlight{opacity:1}
   position:relative;isolation:isolate;overflow:hidden;
   display:flex;align-items:center;
   min-height:max(640px,100svh);
-  background:#090b0d;color:#fff;font-family:var(--f-display);
+  background:#fdfdfd;color:#0d0d0d;font-family:var(--f-display);
 }
 .hero__bg{position:absolute;inset:0;z-index:-2;display:block}
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center}
 .hero__shade{position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(6,8,10,.78) 0%,rgba(6,8,10,.38) 45%,rgba(6,8,10,0) 75%)}
+  background:linear-gradient(90deg,rgba(253,253,253,.94) 0%,rgba(253,253,253,.8) 32%,rgba(253,253,253,0) 54%)}
 
 /* conteúdo alinhado à coluna da logo do nav (--shell) */
 .hero__content{
@@ -221,22 +232,20 @@ body.pointer-fine .spotlight{opacity:1}
 
 /* desktop 16:9 — SUV branca fica à direita, livre da coluna de texto.
    Ancorado embaixo para não cortar as rodas em telas largas/ultrawide;
-   o corte vai para o teto (atrás do nav). Sombra extra no topo dá
-   contraste ao nav sobre a parede clara. */
+   o corte vai para o topo branco da foto. O véu branco à esquerda
+   continua o degradê da foto e dá contraste aos textos escuros. */
 @media(min-width:1101px){
   .hero__bg img{object-position:50% 88%}
-  .hero__shade{background:
-    linear-gradient(180deg,rgba(6,8,10,.55) 0%,rgba(6,8,10,0) 24%),
-    linear-gradient(90deg,rgba(6,8,10,.82) 0%,rgba(6,8,10,.45) 42%,rgba(6,8,10,0) 72%)}
 }
 
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
 @media(max-width:1100px) and (min-width:641px){
   .hero{min-height:100svh;align-items:flex-start}
-  /* foto desce 18% para a SUV ficar abaixo do CTA; o topo vira o fundo escuro
-     da hero e a sombra cobre a parede clara atrás dos textos */
-  .hero__bg{top:18%}
-  .hero__shade{background:linear-gradient(180deg,#090b0d 0%,#090b0d 18%,rgba(9,11,13,.74) 30%,rgba(9,11,13,.5) 48%,rgba(9,11,13,0) 62%)}
+  /* textos sobre o topo branco da foto; o véu só reforça até o CTA.
+     A foto desce um pouco (o topo dela é branco como o fundo, sem emenda)
+     para a SUV não encostar no CTA */
+  .hero__bg{top:8%}
+  .hero__shade{background:linear-gradient(180deg,rgba(253,253,253,.9) 0%,rgba(253,253,253,.75) 36%,rgba(253,253,253,0) 56%)}
   .hero__content{padding-top:clamp(118px,15vh,160px)}
   .hero__inner{width:min(82%,840px);margin:0 auto;justify-items:center;gap:20px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
@@ -248,8 +257,8 @@ body.pointer-fine .spotlight{opacity:1}
 /* celular 9:16 */
 @media(max-width:640px){
   .hero{min-height:100svh;align-items:flex-start}
-  .hero__bg{top:14%}
-  .hero__shade{background:linear-gradient(180deg,#090b0d 0%,#090b0d 14%,rgba(9,11,13,.74) 26%,rgba(9,11,13,.5) 44%,rgba(9,11,13,0) 58%)}
+  .hero__bg{top:12%}
+  .hero__shade{background:linear-gradient(180deg,rgba(253,253,253,.9) 0%,rgba(253,253,253,.75) 36%,rgba(253,253,253,0) 54%)}
   .hero__content{padding:clamp(104px,16vh,140px) 0 clamp(56px,8vh,80px)}
   .hero__inner{width:100%;justify-items:center;gap:17px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
@@ -924,15 +933,15 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       <!-- headline em Anton (assets/hero/svg/titulo-g85-anton.svg) -->
       <h1 class="hero__headline">
         <svg class="hero__headline--desktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 320" role="img" aria-label="Seu carro merece o extraordinário">
-          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#ffffff}.hl .a{fill:#ffbf4b}</style>
+          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#0d0d0d}.hl .a{fill:#ffbf4b}</style>
           <g class="hl"><text class="t w" x="0" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs">SEU CARRO MERECE</text><text class="t a" x="0" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs">O EXTRAORDINÁRIO.</text></g>
         </svg>
         <svg class="hero__headline--tablet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 320" role="img" aria-label="Seu carro merece o extraordinário">
-          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#ffffff}.hl .a{fill:#ffbf4b}</style>
+          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#0d0d0d}.hl .a{fill:#ffbf4b}</style>
           <g class="hl"><text class="t w" x="570" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
         </svg>
         <svg class="hero__headline--mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 320" role="img" aria-label="Seu carro merece o extraordinário">
-          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#ffffff}.hl .a{fill:#ffbf4b}</style>
+          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#0d0d0d}.hl .a{fill:#ffbf4b}</style>
           <g class="hl"><text class="t w" x="570" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
         </svg>
       </h1>
@@ -940,22 +949,22 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       <!-- descrição (assets/hero/svg/{desktop,tablet,mobile}/description.svg) -->
       <p class="hero__desc">
         <svg class="hero__desc--desktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 82" role="img" aria-label="Estética, proteção e acabamento para quem não aceita o comum.">
-          <style>.ds-d text{font-family:Montserrat,Arial,sans-serif;font-size:25px;font-weight:500;fill:#fff}</style>
+          <style>.ds-d text{font-family:Montserrat,Arial,sans-serif;font-size:25px;font-weight:500;fill:#1d1d1f}</style>
           <g class="ds-d"><text x="0" y="30">Estética, proteção e acabamento</text><text x="0" y="68">para quem não aceita o comum.</text></g>
         </svg>
         <svg class="hero__desc--tablet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 82" role="img" aria-label="Estética, proteção e acabamento para quem não aceita o comum.">
-          <style>.ds-t text{font-family:Montserrat,Arial,sans-serif;font-size:25px;font-weight:500;fill:#fff}</style>
+          <style>.ds-t text{font-family:Montserrat,Arial,sans-serif;font-size:25px;font-weight:500;fill:#1d1d1f}</style>
           <g class="ds-t"><text x="350" y="30" text-anchor="middle">Estética, proteção e acabamento</text><text x="350" y="68" text-anchor="middle">para quem não aceita o comum.</text></g>
         </svg>
         <svg class="hero__desc--mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 78" role="img" aria-label="Estética, proteção e acabamento para quem não aceita o comum.">
-          <style>.ds-m text{font-family:Montserrat,Arial,sans-serif;font-size:24px;font-weight:500;fill:#fff}</style>
+          <style>.ds-m text{font-family:Montserrat,Arial,sans-serif;font-size:24px;font-weight:500;fill:#1d1d1f}</style>
           <g class="ds-m"><text x="350" y="28" text-anchor="middle">Estética, proteção e acabamento</text><text x="350" y="65" text-anchor="middle">para quem não aceita o comum.</text></g>
         </svg>
       </p>
 
       <!-- localização (assets/hero/svg/shared/location.svg) -->
       <svg class="hero__location" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 38" role="img" aria-label="Fortaleza, Ceará">
-        <style>.loc .label{font-family:Montserrat,Arial,sans-serif;font-size:18px;font-weight:600;letter-spacing:5px;fill:#fff}.loc .accent{fill:#f6bc55}</style>
+        <style>.loc .label{font-family:Montserrat,Arial,sans-serif;font-size:18px;font-weight:600;letter-spacing:5px;fill:#1d1d1f}.loc .accent{fill:#f6bc55}</style>
         <g class="loc"><rect class="accent" width="58" height="3" rx="1.5" y="0"/><text class="label" x="0" y="33">FORTALEZA • CE</text></g>
       </svg>
 
