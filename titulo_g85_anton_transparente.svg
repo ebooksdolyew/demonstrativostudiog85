@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="320" viewBox="0 0 1140 320" role="img" aria-labelledby="title desc">
+  <title id="title">Seu carro merece o extraordinário — Anton</title>
+  <desc id="desc">Título em duas linhas com a fonte Anton, preto e amarelo, sobre fundo transparente.</desc>
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Anton&amp;display=swap');
+      .headline { font-family: 'Anton', Impact, 'Arial Narrow', sans-serif; font-weight: 400; letter-spacing: -1px; }
+    </style>
+  </defs>
+  <text class="headline" x="0" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs" fill="#000000">SEU CARRO MERECE</text>
+  <text class="headline" x="0" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs" fill="#FFBF4B">O EXTRAORDINÁRIO.</text>
+</svg>
