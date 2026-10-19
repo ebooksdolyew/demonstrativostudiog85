@@ -178,22 +178,13 @@ body.pointer-fine .spotlight{opacity:1}
 .hero{
   position:relative;isolation:isolate;overflow:hidden;
   display:flex;align-items:center;
-  min-height:max(640px,min(100svh,940px));
+  min-height:max(640px,100svh);
   background:#090b0d;color:#fff;font-family:var(--f-display);
 }
 .hero__bg{position:absolute;inset:0;z-index:-2;display:block}
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center}
 .hero__shade{position:absolute;inset:0;z-index:-1;pointer-events:none;
   background:linear-gradient(90deg,rgba(6,8,10,.78) 0%,rgba(6,8,10,.38) 45%,rgba(6,8,10,0) 75%)}
-
-/* fade no scroll: a hero fica presa (sticky) por 70svh enquanto a 2ª foto
-   (RAM) aparece por cima da SUV. --fade (0→1) vem do JS. */
-.hero-pin{position:relative;height:calc(max(100svh,640px) + 70svh)}
-.hero-pin .hero{position:sticky;top:0;height:100svh;min-height:640px}
-.hero__bg--next{opacity:var(--fade,0);will-change:opacity}
-@media(prefers-reduced-motion:no-preference){
-  .hero__bg--next{transform:scale(calc(1.06 - .06 * var(--fade,0)))}
-}
 
 /* conteúdo alinhado à coluna da logo do nav (--shell) */
 .hero__content{
@@ -877,8 +868,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
 /* telas baixas e deitadas: a hero não precisa de 100svh */
 @media(max-height:560px) and (orientation:landscape){
-  .hero-pin{height:auto}
-  .hero-pin .hero{position:relative;height:auto}
   .hero{min-height:auto}
   .hero__content{padding:96px 0 60px}
 }
@@ -919,7 +908,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 </header>
 
 <!-- ============================ HERO ============================ -->
-<div class="hero-pin" id="heroPin">
 <section class="hero" id="topo" aria-label="Studio G85 Estética Automotiva">
 
   <!-- fundo: um WebP por dispositivo (assets/hero/webp) -->
@@ -927,12 +915,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     <source media="(max-width:640px)" srcset="assets/hero/webp/hero-mobile-9x16.webp">
     <source media="(max-width:1100px)" srcset="assets/hero/webp/hero-tablet-ipad-3x4.webp">
     <img src="assets/hero/webp/hero-desktop-16x9.webp" alt="Veículo no box de detalhamento do Studio G85" fetchpriority="high" decoding="async">
-  </picture>
-  <!-- 2ª camada (RAM): aparece com fade conforme o scroll -->
-  <picture class="hero__bg hero__bg--next" id="heroNext" aria-hidden="true">
-    <source media="(max-width:640px)" srcset="assets/hero/webp/hero-ram-mobile-9x16.webp">
-    <source media="(max-width:1100px)" srcset="assets/hero/webp/hero-ram-tablet-ipad-3x4.webp">
-    <img src="assets/hero/webp/hero-ram-desktop-16x9.webp" alt="" fetchpriority="low" decoding="async">
   </picture>
   <div class="hero__shade" aria-hidden="true"></div>
 
@@ -990,7 +972,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     </div>
   </div>
 </section>
-</div>
 
 <div class="checker" aria-hidden="true"></div>
 <div class="marquee" aria-hidden="true">
@@ -1659,9 +1640,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   var prog = document.getElementById('prog');
   var wa = document.getElementById('wa');
   var ticking = false, lastY = window.scrollY;
-  var heroPin = document.getElementById('heroPin');
-  var heroEl = document.getElementById('topo');
-  var heroNext = document.getElementById('heroNext');
 
   function frame(){
     var y = lastY;
@@ -1670,16 +1648,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     prog.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
     nav.classList.toggle('stuck', y > 60);
     wa.classList.toggle('show', y > window.innerHeight * 0.5);
-
-    /* fade da hero: SUV → RAM enquanto a hero está presa (sem pin, usa a saída da hero) */
-    var pr = heroPin.getBoundingClientRect();
-    if(pr.bottom > 0){
-      var dist = heroPin.offsetHeight - heroEl.offsetHeight;
-      if(dist < 10) dist = heroEl.offsetHeight * 0.6;
-      var p = Math.min(Math.max(-pr.top / dist, 0), 1);
-      var f = Math.min(Math.max((p - 0.15) / 0.7, 0), 1);
-      heroNext.style.setProperty('--fade', (f * f * (3 - 2 * f)).toFixed(3));
-    }
 
     if(!reduce){
       var vh = window.innerHeight;
