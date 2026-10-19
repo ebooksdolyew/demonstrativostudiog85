@@ -219,6 +219,17 @@ body.pointer-fine .spotlight{opacity:1}
 @keyframes heroBg{from{transform:scale(1.06)}to{transform:none}}
 .hero__bg img{animation:heroBg 2.4s var(--ease) forwards}
 
+/* desktop 16:9 — SUV branca fica à direita, livre da coluna de texto.
+   Ancorado embaixo para não cortar as rodas em telas largas/ultrawide;
+   o corte vai para o teto (atrás do nav). Sombra extra no topo dá
+   contraste ao nav sobre a parede clara. */
+@media(min-width:1101px){
+  .hero__bg img{object-position:50% 88%}
+  .hero__shade{background:
+    linear-gradient(180deg,rgba(6,8,10,.55) 0%,rgba(6,8,10,0) 24%),
+    linear-gradient(90deg,rgba(6,8,10,.82) 0%,rgba(6,8,10,.45) 42%,rgba(6,8,10,0) 72%)}
+}
+
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
 @media(max-width:1100px) and (min-width:641px){
   .hero{min-height:100svh;align-items:flex-start}
@@ -899,7 +910,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   <picture class="hero__bg">
     <source media="(max-width:640px)" srcset="assets/hero/webp/hero-mobile-9x16.webp">
     <source media="(max-width:1100px)" srcset="assets/hero/webp/hero-tablet-ipad-3x4.webp">
-    <img src="assets/hero/webp/hero-desktop-16x9.webp" alt="RAM recebendo lavagem premium no box do Studio G85" fetchpriority="high" decoding="async">
+    <img src="assets/hero/webp/hero-desktop-16x9.webp" alt="Veículo no box de detalhamento do Studio G85" fetchpriority="high" decoding="async">
   </picture>
   <div class="hero__shade" aria-hidden="true"></div>
 
