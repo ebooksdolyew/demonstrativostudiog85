@@ -233,7 +233,10 @@ body.pointer-fine .spotlight{opacity:1}
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
 @media(max-width:1100px) and (min-width:641px){
   .hero{min-height:100svh;align-items:flex-start}
-  .hero__shade{background:linear-gradient(180deg,rgba(6,8,10,.62),rgba(6,8,10,.1) 68%)}
+  /* foto desce 18% para a SUV ficar abaixo do CTA; o topo vira o fundo escuro
+     da hero e a sombra cobre a parede clara atrás dos textos */
+  .hero__bg{top:18%}
+  .hero__shade{background:linear-gradient(180deg,#090b0d 0%,#090b0d 18%,rgba(9,11,13,.74) 30%,rgba(9,11,13,.5) 48%,rgba(9,11,13,0) 62%)}
   .hero__content{padding-top:clamp(118px,15vh,160px)}
   .hero__inner{width:min(82%,840px);margin:0 auto;justify-items:center;gap:20px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
@@ -245,7 +248,8 @@ body.pointer-fine .spotlight{opacity:1}
 /* celular 9:16 */
 @media(max-width:640px){
   .hero{min-height:100svh;align-items:flex-start}
-  .hero__shade{background:linear-gradient(180deg,rgba(6,8,10,.6),rgba(6,8,10,0) 68%)}
+  .hero__bg{top:14%}
+  .hero__shade{background:linear-gradient(180deg,#090b0d 0%,#090b0d 14%,rgba(9,11,13,.74) 26%,rgba(9,11,13,.5) 44%,rgba(9,11,13,0) 58%)}
   .hero__content{padding:clamp(104px,16vh,140px) 0 clamp(56px,8vh,80px)}
   .hero__inner{width:100%;justify-items:center;gap:17px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
