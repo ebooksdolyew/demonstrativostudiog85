@@ -194,8 +194,7 @@ body.pointer-fine .spotlight{opacity:1}
 }
 .hero__bg{position:absolute;inset:0;z-index:-2;display:block}
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center}
-.hero__shade{position:absolute;inset:0;z-index:-1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(253,253,253,.94) 0%,rgba(253,253,253,.8) 32%,rgba(253,253,253,0) 54%)}
+.hero__shade{position:absolute;inset:0;z-index:-1;pointer-events:none}
 
 /* conteúdo alinhado à coluna da logo do nav (--shell) */
 .hero__content{
@@ -232,10 +231,12 @@ body.pointer-fine .spotlight{opacity:1}
 
 /* desktop 16:9 — SUV branca fica à direita, livre da coluna de texto.
    Ancorado embaixo para não cortar as rodas em telas largas/ultrawide;
-   o corte vai para o topo branco da foto. O véu branco à esquerda
-   continua o degradê da foto e dá contraste aos textos escuros. */
+   o corte vai para o topo branco da foto. Descrição e localização caem
+   sobre a parede escura: ficam em branco com sombra leve. */
 @media(min-width:1101px){
   .hero__bg img{object-position:50% 88%}
+  .hero .ds-d text,.hero .loc .label{fill:#fff}
+  .hero__desc--desktop,.hero__location{filter:drop-shadow(0 1px 10px rgba(0,0,0,.45))}
 }
 
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
