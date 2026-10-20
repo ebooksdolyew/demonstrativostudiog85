@@ -170,12 +170,30 @@ body.pointer-fine .spotlight{opacity:1}
 /* no topo a hero é clara: logo, links, botão e burger em versão escura */
 .nav:not(.stuck) .nav__logo{filter:invert(1)}
 .nav:not(.stuck) .nav__burger:not(.open) i{background:#0d0d0d}
+.nav__studio,.nav__divider{display:none}
+
+/* menu do topo no desktop, como a referência (1672×941; --u = 1px dela):
+   logo + "STUDIO", links soltos, divisória e botão amarelo.
+   Ao rolar (.stuck) volta ao card de vidro centralizado. */
 @media(min-width:1101px){
-  .nav:not(.stuck) .nav__links{background:rgba(255,255,255,.5);border-color:rgba(0,0,0,.1);
-    box-shadow:0 8px 32px -14px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.6)}
-  .nav:not(.stuck) .nav__links a{color:#3a3a3c}
+  :root{--u:min(calc(100vw / 1672),calc(100svh / 941))}
+  .nav{padding:calc(30 * var(--u)) 4.85vw calc(20 * var(--u)) 6vw}
+  .nav>a:first-child{display:flex;align-items:center;gap:calc(3 * var(--u))}
+  .nav:not(.stuck) .nav__logo{height:max(56px,calc(85 * var(--u)));margin:calc(max(56px,calc(85 * var(--u))) * -.176) calc(max(56px,calc(85 * var(--u))) * -.052)}
+  .nav__studio{display:block;font-family:var(--f-display);font-size:max(9px,calc(11.5 * var(--u)));font-weight:700;
+    letter-spacing:.26em;text-transform:uppercase;color:#0d0d0d;transition:opacity .4s var(--ease),transform .5s var(--ease)}
+  .nav__links{transition:background .5s var(--ease),border-color .5s var(--ease),padding .5s var(--ease),left .5s var(--ease),gap .5s var(--ease)}
+  .nav:not(.stuck) .nav__links{left:46.6%;gap:calc(42 * var(--u));padding:0;background:none;border-color:transparent;box-shadow:none;
+    backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav:not(.stuck) .nav__links a{font-size:max(10px,calc(12.5 * var(--u)));font-weight:700;letter-spacing:.11em;color:#0d0d0d}
   .nav:not(.stuck) .nav__links a:hover{color:#000}
-  .nav:not(.stuck) .btn--pill{color:#0d0d0d;border-color:rgba(0,0,0,.28)}
+  .nav__divider{display:block;width:1.5px;height:calc(37 * var(--u));background:#2b2b2b;
+    margin-left:auto;margin-right:calc(78 * var(--u));transition:opacity .4s var(--ease)}
+  .nav:not(.stuck) .btn--nav{height:max(42px,calc(51 * var(--u)));padding:0 max(20px,calc(34 * var(--u)));
+    background:#f8bc53;border:0;border-radius:3px;color:#0d0d0d;
+    font-size:max(10px,calc(12.5 * var(--u)));font-weight:700;letter-spacing:.11em;text-transform:uppercase}
+  .nav:not(.stuck) .btn--nav:hover{color:#000}
+  .nav.stuck .nav__studio,.nav.stuck .nav__divider{opacity:0;pointer-events:none}
 }
 .nav__burger.open i:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav__burger.open i:nth-child(2){opacity:0}
@@ -226,6 +244,16 @@ body.pointer-fine .spotlight{opacity:1}
 .hero__inner>:nth-child(2){animation-delay:.22s}
 .hero__inner>:nth-child(3){animation-delay:.34s}
 .hero__inner>:nth-child(4){animation-delay:.46s}
+.hero__inner>:nth-child(5){animation-delay:.58s}
+.hero__bar{display:none}
+
+/* empilhamento: a hero fica presa ao topo (textos fixos) e o marquee e a
+   seção "Sobre" sobem por cima dela. Em telas mais baixas que a hero ela
+   só prende depois de mostrar o rodapé (top negativo). */
+.hero-stack{position:relative}
+.hero-stack>.hero{position:sticky;top:min(0px,calc(100svh - 640px));z-index:0}
+.hero-stack>:not(.hero){position:relative;z-index:1}
+.hero-stack>.checker{box-shadow:0 -28px 60px -12px rgba(0,0,0,.45)}
 @keyframes heroBg{from{transform:scale(1.06)}to{transform:none}}
 .hero__bg img{animation:heroBg 2.4s var(--ease) forwards}
 
@@ -237,6 +265,19 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__bg img{object-position:50% 88%}
   .hero .ds-d text,.hero .loc .label{fill:#fff}
   .hero__desc--desktop,.hero__location{filter:drop-shadow(0 1px 10px rgba(0,0,0,.45))}
+
+  /* proporções da referência (desktop 1672×941): --u = 1px da referência,
+     escala pela largura e pela altura da tela, o que for menor */
+  .hero__content{width:88vw;padding:calc(85 * var(--u)) 0}
+  .hero__inner{width:100%;gap:0}
+  .hero__headline{width:calc(1125 * var(--u))}
+  .hero__bar{display:block;width:calc(88 * var(--u));height:max(3px,calc(5 * var(--u)));
+    margin-top:calc(54 * var(--u));background:#f8bc53;border-radius:2px}
+  .hero__desc{width:calc(671 * var(--u));margin-top:calc(25 * var(--u))}
+  .loc .accent{display:none}
+  .hero__inner .hero__location{width:calc(310 * var(--u));margin-top:calc(11 * var(--u))}
+  .hero__actions{margin-top:calc(28 * var(--u))}
+  .hero__cta{width:calc(372 * var(--u))}
 }
 
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
@@ -878,6 +919,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
 /* telas baixas e deitadas: a hero não precisa de 100svh */
 @media(max-height:560px) and (orientation:landscape){
+  .hero-stack>.hero{position:relative;top:auto}
   .hero{min-height:auto}
   .hero__content{padding:96px 0 60px}
 }
@@ -901,6 +943,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 <header class="nav" id="nav">
   <a href="#topo" aria-label="Studio G85 — início">
     <img class="nav__logo" src="assets/imagens/logo-hero-lN6XQNPM.webp" alt="Studio G85">
+    <span class="nav__studio" aria-hidden="true">Studio</span>
   </a>
   <nav class="nav__links" id="menu">
     <a href="#sobre">Sobre</a>
@@ -911,6 +954,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     <a href="#avaliacoes">Avaliações</a>
     <a href="#contato">Contato</a>
   </nav>
+  <span class="nav__divider" aria-hidden="true"></span>
   <a class="btn btn--pill btn--nav" href="https://wa.me/558598484104?text=Ol%C3%A1,%20vim%20pelo%20site!" target="_blank" rel="noopener">
     <span>Solicitar orçamento</span>
   </a>
@@ -918,6 +962,8 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 </header>
 
 <!-- ============================ HERO ============================ -->
+<!-- empilhamento: a hero fica presa e o marquee + "Sobre" sobem por cima -->
+<div class="hero-stack">
 <section class="hero" id="topo" aria-label="Studio G85 Estética Automotiva">
 
   <!-- fundo: um WebP por dispositivo (assets/hero/webp) -->
@@ -933,19 +979,22 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
       <!-- headline em Anton (assets/hero/svg/titulo-g85-anton.svg) -->
       <h1 class="hero__headline">
-        <svg class="hero__headline--desktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 320" role="img" aria-label="Seu carro merece o extraordinário">
-          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#0d0d0d}.hl .a{fill:#ffbf4b}</style>
-          <g class="hl"><text class="t w" x="0" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs">SEU CARRO MERECE</text><text class="t a" x="0" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs">O EXTRAORDINÁRIO.</text></g>
+        <svg class="hero__headline--desktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 302" role="img" aria-label="Seu carro merece o extraordinário">
+          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;stroke-width:5;stroke-linejoin:round;paint-order:stroke}.hl .w{fill:#0d0d0d;stroke:#0d0d0d}.hl .a{fill:#ffbf4b;stroke:#ffbf4b}</style>
+          <g class="hl"><text class="t w" x="0" y="136" font-size="150" textLength="985" lengthAdjust="spacingAndGlyphs">SEU CARRO MERECE</text><text class="t a" x="0" y="297" font-size="150" textLength="1065" lengthAdjust="spacingAndGlyphs">O EXTRAORDINÁRIO.</text></g>
         </svg>
-        <svg class="hero__headline--tablet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 320" role="img" aria-label="Seu carro merece o extraordinário">
-          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#0d0d0d}.hl .a{fill:#ffbf4b}</style>
-          <g class="hl"><text class="t w" x="570" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
+        <svg class="hero__headline--tablet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 302" role="img" aria-label="Seu carro merece o extraordinário">
+          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;stroke-width:5;stroke-linejoin:round;paint-order:stroke}.hl .w{fill:#0d0d0d;stroke:#0d0d0d}.hl .a{fill:#ffbf4b;stroke:#ffbf4b}</style>
+          <g class="hl"><text class="t w" x="570" y="136" font-size="150" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="297" font-size="150" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
         </svg>
-        <svg class="hero__headline--mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 320" role="img" aria-label="Seu carro merece o extraordinário">
-          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400}.hl .w{fill:#0d0d0d}.hl .a{fill:#ffbf4b}</style>
-          <g class="hl"><text class="t w" x="570" y="132" font-size="148" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="302" font-size="164" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
+        <svg class="hero__headline--mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 302" role="img" aria-label="Seu carro merece o extraordinário">
+          <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;stroke-width:5;stroke-linejoin:round;paint-order:stroke}.hl .w{fill:#0d0d0d;stroke:#0d0d0d}.hl .a{fill:#ffbf4b;stroke:#ffbf4b}</style>
+          <g class="hl"><text class="t w" x="570" y="136" font-size="150" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="297" font-size="150" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
         </svg>
       </h1>
+
+      <!-- barra amarela entre título e descrição (só desktop) -->
+      <span class="hero__bar" aria-hidden="true"></span>
 
       <!-- descrição (assets/hero/svg/{desktop,tablet,mobile}/description.svg) -->
       <p class="hero__desc">
@@ -972,9 +1021,9 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       <div class="hero__actions">
         <!-- CTA (assets/hero/svg/shared/cta.svg) -->
         <a class="hero__cta" href="https://wa.me/558598484104?text=Ol%C3%A1,%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20o%20meu%20ve%C3%ADculo!" target="_blank" rel="noopener" aria-label="Agendar avaliação pelo WhatsApp">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" aria-hidden="true" focusable="false">
-            <style>.cta .bg{fill:#f8bc53}.cta .label{font-family:Montserrat,Arial,sans-serif;font-size:16px;font-weight:700;letter-spacing:1.5px;fill:#0d0d0d;text-anchor:middle}</style>
-            <g class="cta"><rect class="bg" width="280" height="60" rx="12"/><text class="label" x="140" y="36">AGENDAR AVALIAÇÃO</text></g>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 71" aria-hidden="true" focusable="false">
+            <style>.cta .bg{fill:#f8bc53}.cta .label{font-family:Montserrat,Arial,sans-serif;font-size:18.5px;font-weight:700;letter-spacing:2.4px;fill:#0d0d0d}.cta .arrow{fill:none;stroke:#0d0d0d;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}</style>
+            <g class="cta"><rect class="bg" width="372" height="71" rx="4"/><text class="label" x="41" y="42">AGENDAR AVALIAÇÃO</text><path class="arrow" d="M325 36h18M336 29l7 7-7 7"/></g>
           </svg>
         </a>
       </div>
@@ -1039,6 +1088,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     </div>
   </div>
 </section>
+</div>
 
 <!-- ============================ SERVIÇOS ============================ -->
 <section id="servicos" class="pad">
