@@ -459,7 +459,7 @@ section{position:relative}
 /* ============================================================
    COMO FUNCIONA — linha do tempo com números vazados
    ============================================================ */
-#como-funciona{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);overflow:hidden}
+#como-funciona{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);overflow:clip}
 .flow{list-style:none;counter-reset:passo;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line)}
 @media(max-width:900px){.flow{grid-template-columns:repeat(2,1fr)}}
@@ -893,6 +893,78 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 @media(max-width:520px){.wa span{display:none}.wa{padding:16px;border-radius:50%}}
 
 /* ============================================================
+   EFEITOS DE ROLAGEM — um jeito diferente em cada seção
+   (todos desligados com prefers-reduced-motion)
+   ============================================================ */
+
+/* O estúdio: texto que se acende palavra por palavra + vídeo que abre */
+.scrub .w{opacity:.16;transition:opacity .35s var(--ease)}
+.scrub .w.lit{opacity:1}
+.vpres video{clip-path:inset(calc(var(--k,0) * 18%) calc(var(--k,0) * 14%) round calc(5px + var(--k,0) * 46px));
+  scale:calc(1 + var(--k,0) * .08)}
+
+/* Como funciona: seção presa, passos correndo na horizontal */
+.hs__foot{display:flex;align-items:center;gap:24px;margin-top:24px}
+.hs__foot .note{margin:0}
+.hs__bar{display:none}
+.hs-on{padding:0;height:var(--hs-h,auto)}
+.hs-on .hs__pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+.hs-on .hs__shell{padding-top:60px}
+.hs-on .hs__track{display:flex;align-items:stretch;gap:clamp(36px,4vw,64px);width:max-content;
+  transform:translate3d(var(--hx,0px),0,0);will-change:transform}
+.hs-on .hs__intro{flex:0 0 min(480px,36vw);margin:0;align-self:center}
+.hs-on .flow{display:flex;width:max-content;gap:0;background:none;border:0}
+.hs-on .flow li{flex:0 0 clamp(290px,24vw,360px);border:1px solid var(--line);margin-left:-1px;
+  min-height:clamp(330px,48svh,420px);
+  /* cada cartão gira levemente ao entrar pela direita */
+  transform:perspective(900px) rotateY(calc(var(--e,0) * -16deg)) translateY(calc(var(--e,0) * 26px));
+  opacity:calc(1 - var(--e,0) * .55);transform-origin:0 50%}
+.hs-on .hs__bar{display:block;position:relative;flex:1;height:2px;background:var(--line)}
+.hs-on .hs__bar b{position:absolute;inset:0;background:var(--gold);transform:scaleX(var(--hp,0));transform-origin:0 50%}
+
+/* Trabalhos: colunas da galeria em velocidades diferentes */
+.gal figure{translate:0 var(--gy,0px)}
+
+/* Citação: linhas deslizam em sentidos opostos e a foto se aproxima */
+.break__txt q>span{translate:var(--qx,0px) 0}
+.break__bg img{scale:var(--bz,1)}
+
+/* Avaliações: nota que sobe, estrelas que acendem e cards em leque */
+.stars i{font-style:normal;display:inline-block;opacity:.18;transform:scale(.6);
+  transition:opacity .4s var(--ease),transform .6s cubic-bezier(.34,1.56,.64,1)}
+.stars.lit i{opacity:1;transform:none}
+.stars.lit i:nth-child(2){transition-delay:.12s}
+.stars.lit i:nth-child(3){transition-delay:.24s}
+.stars.lit i:nth-child(4){transition-delay:.36s}
+.stars.lit i:nth-child(5){transition-delay:.48s}
+.rail .card{opacity:0;translate:140px 40px;rotate:6deg;
+  transition:opacity .9s var(--ease),translate 1.1s var(--ease),rotate 1.1s var(--ease),transform .7s var(--ease),border-color .5s,background .5s;
+  transition-delay:calc(var(--i,0) * 90ms)}
+.rail.in .card{opacity:1;translate:0 0;rotate:0deg}
+
+/* Assinatura: cartão gira até ficar de frente, com brilho dourado passando */
+.plan__card{overflow:hidden;transform:perspective(1300px) rotateY(calc(var(--pk,0) * -26deg)) rotateX(calc(var(--pk,0) * 8deg)) translateY(calc(var(--pk,0) * 70px));
+  opacity:calc(1 - var(--pk,0) * .6);transform-origin:20% 50%}
+.plan__sheen{position:absolute;top:-20%;bottom:-20%;left:-45%;width:38%;z-index:0;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(242,194,48,.22),rgba(255,255,255,.16),transparent);
+  transform:translateX(calc(var(--ps,0) * 420%)) skewX(-18deg)}
+.plan__card>*:not(.plan__sheen):not(.plan__ribbon){position:relative;z-index:1}
+.plan__ribbon{z-index:2}
+
+/* Contato: o vídeo de fundo começa recortado e se expande até a borda */
+.vbg{clip-path:inset(calc(var(--ck,0) * 9%) calc(var(--ck,0) * 6%) round calc(var(--ck,0) * 44px))}
+#contato .ghostnum{translate:var(--gx,0px) 0}
+
+@media(prefers-reduced-motion:reduce){
+  .scrub .w{opacity:1!important}
+  .vpres video,.vbg{clip-path:none!important;scale:none!important}
+  .gal figure,.break__txt q>span{translate:none!important}
+  .rail .card{opacity:1!important;translate:none!important;rotate:none!important}
+  .stars i{opacity:1!important}
+  .plan__card{transform:none!important;opacity:1!important}
+}
+
+/* ============================================================
    SEÇÕES CLARAS — ritmo alternado preto / claro
    ============================================================ */
 .light{
@@ -1153,51 +1225,58 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 </div>
 
 <!-- ============================ COMO FUNCIONA ============================ -->
-<section id="como-funciona" class="pad">
-  <div class="shell">
-    <div class="sechead r">
-      <p class="eyebrow">Como funciona</p>
-      <h2 class="lines">
-        <span><i>Do primeiro contato</i></span>
-        <span><i>à <em>entrega final</em></i></span>
-      </h2>
-      <p>O atendimento segue sempre as mesmas seis etapas. <b>Você sabe o que acontece com o seu carro em
-      cada momento</b>, com registro e comunicação em cada ponto do caminho.</p>
+<section id="como-funciona" class="pad hs">
+  <!-- no desktop a seção fica presa e os passos correm na horizontal com a rolagem -->
+  <div class="hs__pin">
+    <div class="shell hs__shell">
+      <div class="hs__track">
+        <div class="sechead r hs__intro">
+          <p class="eyebrow">Como funciona</p>
+          <h2 class="lines">
+            <span><i>Do primeiro contato</i></span>
+            <span><i>à <em>entrega final</em></i></span>
+          </h2>
+          <p>O atendimento segue sempre as mesmas seis etapas. <b>Você sabe o que acontece com o seu carro em
+          cada momento</b>, com registro e comunicação em cada ponto do caminho.</p>
+        </div>
+        <ol class="flow r">
+          <li>
+            <h3>Contato</h3>
+            <p>Você chama no WhatsApp, conta qual é o carro e o que gostaria de resolver. Combinamos o melhor dia para a avaliação.</p>
+            <p class="get"><b>Você recebe</b>Data e horário da avaliação</p>
+          </li>
+          <li>
+            <h3>Avaliação presencial</h3>
+            <p>Analisamos pintura, vidros e interior, junto com o tipo de uso e a exposição: garagem ou rua, sol, maresia. Aqui nasce a indicação honesta, inclusive a de não fazer.</p>
+            <p class="get"><b>Você recebe</b>O que faz sentido para o seu carro</p>
+          </li>
+          <li>
+            <h3>Orçamento detalhado</h3>
+            <p>Você recebe o escopo com os valores antes de qualquer coisa começar. Serviços adicionais têm desconto progressivo automático.</p>
+            <p class="get"><b>Você recebe</b>Escopo e valores claros</p>
+          </li>
+          <li>
+            <h3>Check-in fotográfico</h3>
+            <p>Antes do início, fazemos uma vistoria com fotos e checklist. Defeitos que o carro já tinha ficam registrados.</p>
+            <p class="get"><b>Você recebe</b>O registro do estado do veículo</p>
+          </li>
+          <li>
+            <h3>Execução controlada</h3>
+            <p>Box climatizado, temperatura e umidade sob controle, processo documentado. Precisão não combina com improviso.</p>
+            <p class="get"><b>Você recebe</b>Acompanhamento das etapas</p>
+          </li>
+          <li>
+            <h3>Entrega e manutenção</h3>
+            <p>Registramos o resultado final e explicamos os cuidados para a proteção durar. A entrega não encerra a relação.</p>
+            <p class="get"><b>Você recebe</b>Orientação de manutenção</p>
+          </li>
+        </ol>
+      </div>
+      <div class="hs__foot">
+        <i class="hs__bar" aria-hidden="true"><b></b></i>
+        <p class="note r">Cancelamentos com no mínimo 24h de antecedência.</p>
+      </div>
     </div>
-
-    <ol class="flow r">
-      <li>
-        <h3>Contato</h3>
-        <p>Você chama no WhatsApp, conta qual é o carro e o que gostaria de resolver. Combinamos o melhor dia para a avaliação.</p>
-        <p class="get"><b>Você recebe</b>Data e horário da avaliação</p>
-      </li>
-      <li>
-        <h3>Avaliação presencial</h3>
-        <p>Analisamos pintura, vidros e interior, junto com o tipo de uso e a exposição: garagem ou rua, sol, maresia. Aqui nasce a indicação honesta, inclusive a de não fazer.</p>
-        <p class="get"><b>Você recebe</b>O que faz sentido para o seu carro</p>
-      </li>
-      <li>
-        <h3>Orçamento detalhado</h3>
-        <p>Você recebe o escopo com os valores antes de qualquer coisa começar. Serviços adicionais têm desconto progressivo automático.</p>
-        <p class="get"><b>Você recebe</b>Escopo e valores claros</p>
-      </li>
-      <li>
-        <h3>Check-in fotográfico</h3>
-        <p>Antes do início, fazemos uma vistoria com fotos e checklist. Defeitos que o carro já tinha ficam registrados.</p>
-        <p class="get"><b>Você recebe</b>O registro do estado do veículo</p>
-      </li>
-      <li>
-        <h3>Execução controlada</h3>
-        <p>Box climatizado, temperatura e umidade sob controle, processo documentado. Precisão não combina com improviso.</p>
-        <p class="get"><b>Você recebe</b>Acompanhamento das etapas</p>
-      </li>
-      <li>
-        <h3>Entrega e manutenção</h3>
-        <p>Registramos o resultado final e explicamos os cuidados para a proteção durar. A entrega não encerra a relação.</p>
-        <p class="get"><b>Você recebe</b>Orientação de manutenção</p>
-      </li>
-    </ol>
-    <p class="note r">Cancelamentos com no mínimo 24h de antecedência.</p>
   </div>
 </section>
 
@@ -1611,9 +1690,9 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
         <span><i>Acredite <em>neles.</em></i></span>
       </h2>
       <div class="google">
-        <div class="google__score">5,0</div>
+        <div class="google__score" data-count="5">5,0</div>
         <div>
-          <div class="stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <div class="stars" aria-label="5 de 5 estrelas"><i>★</i><i>★</i><i>★</i><i>★</i><i>★</i></div>
           <div class="google__meta">Avaliações verificadas · nota máxima no Google</div>
         </div>
         <a class="btn btn--ghost" href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener"><span>Ver todas no Google</span></a>
@@ -1684,7 +1763,8 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
         </div>
       </div>
 
-      <article class="plan__card r-r">
+      <article class="plan__card">
+        <span class="plan__sheen" aria-hidden="true"></span>
         <span class="plan__ribbon">Em breve</span>
         <span class="plan__tag">Plano G85</span>
         <h3>Nome do plano<br><span class="tbd">a definir</span></h3>
@@ -1875,6 +1955,175 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);
   frame();
+
+  /* ---------- EFEITOS DE ROLAGEM POR SEÇÃO ---------- */
+  (function(){
+    if(reduce) return;
+    var clamp = function(v){ return v < 0 ? 0 : v > 1 ? 1 : v; };
+    var vh = window.innerHeight;
+
+    /* O estúdio: separa o texto em palavras (mantendo negrito e destaques) */
+    var aboutTxt = document.querySelector('.about__txt');
+    var aboutPs = aboutTxt ? $$('.about__txt > p', aboutTxt.parentNode) : [];
+    var words = [];
+    aboutPs.forEach(function(par){
+      var walker = document.createTreeWalker(par, NodeFilter.SHOW_TEXT, null);
+      var nodes = []; while(walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function(t){
+        var frag = document.createDocumentFragment();
+        t.textContent.split(/(\s+)/).forEach(function(part){
+          if(!part) return;
+          if(/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+          var w = document.createElement('span'); w.className = 'w'; w.textContent = part;
+          frag.appendChild(w); words.push(w);
+        });
+        t.parentNode.replaceChild(frag, t);
+      });
+      par.classList.add('scrub');
+    });
+    var litCount = -1;
+    var vpres = document.querySelector('.vpres');
+
+    /* Como funciona: rolagem horizontal presa (só em telas largas e altas) */
+    var hs = document.getElementById('como-funciona');
+    var hsTrack = hs && hs.querySelector('.hs__track');
+    var hsShell = hs && hs.querySelector('.hs__shell');
+    var hsCards = hs ? $$('.flow li', hs) : [];
+    var mqHs = window.matchMedia('(min-width:901px) and (min-height:620px)');
+    var hsDist = 0;
+    function hsSetup(){
+      if(!hs) return;
+      var on = mqHs.matches;
+      hs.classList.toggle('hs-on', on);
+      if(!on){ hs.style.removeProperty('--hs-h'); hsTrack.style.removeProperty('--hx'); return; }
+      hsDist = Math.max(0, hsTrack.scrollWidth - hsShell.clientWidth);
+      hs.style.setProperty('--hs-h', (window.innerHeight + hsDist) + 'px');
+    }
+
+    /* Trabalhos, citação, assinatura e contato */
+    var gal = document.querySelector('.gal');
+    var galFigs = gal ? $$('figure', gal) : [];
+    var colSpeed = [-0.55, 0.45, -0.2, 0.7];
+    var brk = document.querySelector('.break');
+    var brkLines = brk ? $$('q > span', brk) : [];
+    var brkImg = brk && brk.querySelector('.break__bg img');
+    var plan = document.querySelector('.plan__card');
+    var contato = document.getElementById('contato');
+    var vbg = contato && contato.querySelector('.vbg');
+    var ghost = contato && contato.querySelector('.ghostnum');
+
+    function run(){
+      vh = window.innerHeight;
+
+      /* palavras acendem do topo do texto (80% da tela) até 35% da tela */
+      if(words.length){
+        var r = aboutPs[0].getBoundingClientRect();
+        var last = aboutPs[aboutPs.length - 1].getBoundingClientRect();
+        var p = clamp((vh * 0.8 - r.top) / ((last.bottom - r.top) + vh * 0.1));
+        var n = Math.round(p * words.length);
+        if(n !== litCount){
+          for(var i = 0; i < words.length; i++) words[i].classList.toggle('lit', i < n);
+          litCount = n;
+        }
+      }
+      if(vpres){
+        var rv = vpres.getBoundingClientRect();
+        vpres.style.setProperty('--k', (1 - clamp((vh - rv.top) / (vh * 0.75))).toFixed(3));
+      }
+
+      /* passos na horizontal: o deslocamento acompanha a rolagem vertical */
+      if(hs && hs.classList.contains('hs-on')){
+        var rh = hs.getBoundingClientRect();
+        var hp = hsDist ? clamp(-rh.top / hsDist) : 0;
+        hsTrack.style.setProperty('--hx', (-hp * hsDist).toFixed(1) + 'px');
+        hs.style.setProperty('--hp', hp.toFixed(3));
+        var right = window.innerWidth;
+        hsCards.forEach(function(li){
+          var rl = li.getBoundingClientRect();
+          /* 1 = ainda fora pela direita, 0 = já dentro da tela */
+          li.style.setProperty('--e', clamp((rl.left - right * 0.72) / (right * 0.3)).toFixed(3));
+        });
+      }
+
+      /* galeria: cada coluna anda numa velocidade */
+      if(gal && window.innerWidth > 620){
+        var rg = gal.getBoundingClientRect();
+        if(rg.bottom > -200 && rg.top < vh + 200){
+          var pg = clamp((vh - rg.top) / (vh + rg.height)) - 0.5;
+          var lefts = [], vis = [];
+          galFigs.forEach(function(f){ if(!f.classList.contains('hide')){ vis.push(f); lefts.push(f.offsetLeft); } });
+          var cols = lefts.slice().sort(function(a,b){ return a - b; }).filter(function(v,i,a){ return !i || v !== a[i-1]; });
+          vis.forEach(function(f, i){
+            var c = cols.indexOf(lefts[i]);
+            f.style.setProperty('--gy', (pg * colSpeed[c % colSpeed.length] * 160).toFixed(1) + 'px');
+          });
+        }
+      } else if(gal){ galFigs.forEach(function(f){ f.style.removeProperty('--gy'); }); }
+
+      /* citação: linhas se cruzam e a foto se aproxima */
+      if(brk){
+        var rb = brk.getBoundingClientRect();
+        if(rb.bottom > 0 && rb.top < vh){
+          var pb = clamp((vh - rb.top) / (vh + rb.height));
+          var off = (pb - 0.5) * 2;
+          brkLines.forEach(function(l, i){
+            l.style.setProperty('--qx', ((i % 2 ? 1 : -1) * off * 11).toFixed(2) + 'vw');
+          });
+          if(brkImg) brkImg.style.setProperty('--bz', (1.28 - pb * 0.28).toFixed(3));
+        }
+      }
+
+      /* assinatura: o cartão gira até ficar de frente; o brilho passa no fim */
+      if(plan){
+        var rp = plan.getBoundingClientRect();
+        var pp = clamp((vh - rp.top) / (vh * 0.7));
+        plan.style.setProperty('--pk', (1 - pp).toFixed(3));
+        plan.style.setProperty('--ps', clamp((pp - 0.55) / 0.45).toFixed(3));
+      }
+
+      /* contato: o vídeo se expande conforme a seção chega ao topo */
+      if(contato){
+        var rc = contato.getBoundingClientRect();
+        var ck = clamp(rc.top / (vh * 0.9));
+        if(vbg) vbg.style.setProperty('--ck', ck.toFixed(3));
+        if(ghost) ghost.style.setProperty('--gx', ((ck - 0.3) * 22).toFixed(2) + 'vw');
+      }
+      busy = false;
+    }
+    var busy = false;
+    function req(){ if(!busy){ busy = true; requestAnimationFrame(run); } }
+    window.addEventListener('scroll', req, {passive:true});
+    window.addEventListener('resize', function(){ hsSetup(); req(); });
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ hsSetup(); req(); });
+    hsSetup(); run();
+    /* a galeria muda de altura ao filtrar: recalcula */
+    $$('.galfilter button, #galmore').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(req, 30); }); });
+  })();
+
+  /* ---------- AVALIAÇÕES: NOTA, ESTRELAS E CARDS ---------- */
+  (function(){
+    var score = document.querySelector('.google__score[data-count]');
+    var stars = document.querySelector('.stars');
+    $$('.rail .card').forEach(function(c, i){ c.style.setProperty('--i', i); });
+    if(!score) return;
+    if(reduce){ if(stars) stars.classList.add('lit'); return; }
+    score.textContent = '0,0';
+    var gio = new IntersectionObserver(function(en){
+      if(!en[0].isIntersecting) return;
+      gio.disconnect();
+      var target = parseFloat(score.getAttribute('data-count')), t0 = null;
+      function step(ts){
+        if(t0 === null) t0 = ts;
+        var k = Math.min(1, (ts - t0) / 1300);
+        var v = target * (1 - Math.pow(1 - k, 3));
+        score.textContent = v.toFixed(1).replace('.', ',');
+        if(k < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      if(stars) stars.classList.add('lit');
+    }, {threshold:0.6});
+    gio.observe(score);
+  })();
 
   /* ---------- SPOTLIGHT ---------- */
   var spot = document.getElementById('spot');
