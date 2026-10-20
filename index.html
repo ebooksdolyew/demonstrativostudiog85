@@ -228,9 +228,9 @@ body.pointer-fine .spotlight{opacity:1}
 .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:block}
 .hero__headline{width:100%;margin:0}
 .hero__desc{width:min(100%,590px);margin:0}
-.hero__inner .hero__location{width:260px}
+.hero__inner .hero__location{width:220px}
 .hero__actions{display:flex;align-items:center;flex-wrap:wrap;gap:28px;width:100%}
-.hero__cta{display:block;width:280px;max-width:100%}
+.hero__cta{display:block;width:236px;max-width:100%}
 
 /* estados de hover (os SVGs são inline, então o CSS da página vale) */
 .hero__cta .bg{transition:fill .25s ease,transform .25s ease;transform-origin:center}
@@ -245,6 +245,11 @@ body.pointer-fine .spotlight{opacity:1}
 .hero__inner>:nth-child(3){animation-delay:.34s}
 .hero__inner>:nth-child(4){animation-delay:.46s}
 .hero__inner>:nth-child(5){animation-delay:.58s}
+/* título: letra por letra, da esquerda para a direita (--i = ordem da letra) */
+.hero__inner>.hero__headline{opacity:1;animation:none}
+@keyframes heroCh{from{opacity:0;transform:translateY(38%)}to{opacity:1;transform:none}}
+.hero__headline .ch{transform-box:fill-box;transform-origin:50% 100%;
+  animation:heroCh .75s cubic-bezier(.2,.75,.25,1) both;animation-delay:calc(.12s + var(--i) * .038s)}
 .hero__bar{display:none}
 
 /* empilhamento: a hero fica presa ao topo (textos fixos) e o marquee e a
@@ -273,11 +278,11 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__headline{width:calc(1125 * var(--u))}
   .hero__bar{display:block;width:calc(88 * var(--u));height:max(3px,calc(5 * var(--u)));
     margin-top:calc(54 * var(--u));background:#f8bc53;border-radius:2px}
-  .hero__desc{width:calc(671 * var(--u));margin-top:calc(25 * var(--u))}
+  .hero__desc{width:calc(560 * var(--u));margin-top:calc(24 * var(--u))}
   .loc .accent{display:none}
-  .hero__inner .hero__location{width:calc(310 * var(--u));margin-top:calc(11 * var(--u))}
-  .hero__actions{margin-top:calc(28 * var(--u))}
-  .hero__cta{width:calc(372 * var(--u))}
+  .hero__inner .hero__location{width:calc(260 * var(--u));margin-top:calc(10 * var(--u))}
+  .hero__actions{margin-top:calc(24 * var(--u))}
+  .hero__cta{width:calc(310 * var(--u))}
 }
 
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
@@ -292,7 +297,7 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__inner{width:min(82%,840px);margin:0 auto;justify-items:center;gap:20px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
   .hero__headline .hero__headline--tablet,.hero__desc .hero__desc--tablet{display:block}
-  .hero__desc{width:min(100%,700px)}
+  .hero__desc{width:min(100%,580px)}
   .hero__actions{justify-content:center}
 }
 
@@ -306,9 +311,9 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
   .hero__headline .hero__headline--mobile,.hero__desc .hero__desc--mobile{display:block}
   .hero__desc{width:100%}
-  .hero__inner .hero__location{width:220px}
+  .hero__inner .hero__location{width:190px}
   .hero__actions{justify-content:center}
-  .hero__cta{width:100%;max-width:280px}
+  .hero__cta{width:100%;max-width:236px}
 }
 
 .eyebrow{
@@ -981,15 +986,15 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       <h1 class="hero__headline">
         <svg class="hero__headline--desktop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 302" role="img" aria-label="Seu carro merece o extraordinário">
           <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;stroke-width:5;stroke-linejoin:round;paint-order:stroke}.hl .w{fill:#0d0d0d;stroke:#0d0d0d}.hl .a{fill:#ffbf4b;stroke:#ffbf4b}</style>
-          <g class="hl"><text class="t w" x="0" y="136" font-size="150" textLength="985" lengthAdjust="spacingAndGlyphs">SEU CARRO MERECE</text><text class="t a" x="0" y="297" font-size="150" textLength="1065" lengthAdjust="spacingAndGlyphs">O EXTRAORDINÁRIO.</text></g>
+          <g class="hl"><g transform="translate(0 0) scale(0.91892 1)"><text class="t w ch" x="0" y="136" font-size="150" style="--i:0">S</text><text class="t w ch" x="69.2" y="136" font-size="150" style="--i:1">E</text><text class="t w ch" x="130.95" y="136" font-size="150" style="--i:2">U</text><text class="t w ch" x="237.16" y="136" font-size="150" style="--i:3">C</text><text class="t w ch" x="308.27" y="136" font-size="150" style="--i:4">A</text><text class="t w ch" x="381.08" y="136" font-size="150" style="--i:5">R</text><text class="t w ch" x="452.56" y="136" font-size="150" style="--i:6">R</text><text class="t w ch" x="524.05" y="136" font-size="150" style="--i:7">O</text><text class="t w ch" x="632.14" y="136" font-size="150" style="--i:8">M</text><text class="t w ch" x="744.06" y="136" font-size="150" style="--i:9">E</text><text class="t w ch" x="805.8" y="136" font-size="150" style="--i:10">R</text><text class="t w ch" x="877.28" y="136" font-size="150" style="--i:11">E</text><text class="t w ch" x="939.03" y="136" font-size="150" style="--i:12">C</text><text class="t w ch" x="1010.16" y="136" font-size="150" style="--i:13">E</text></g><g transform="translate(0 0) scale(1.00599 1)"><text class="t a ch" x="0" y="297" font-size="150" style="--i:14">O</text><text class="t a ch" x="108.09" y="297" font-size="150" style="--i:15">E</text><text class="t a ch" x="169.84" y="297" font-size="150" style="--i:16">X</text><text class="t a ch" x="242.42" y="297" font-size="150" style="--i:17">T</text><text class="t a ch" x="301.75" y="297" font-size="150" style="--i:18">R</text><text class="t a ch" x="373.23" y="297" font-size="150" style="--i:19">A</text><text class="t a ch" x="446.03" y="297" font-size="150" style="--i:20">O</text><text class="t a ch" x="518.98" y="297" font-size="150" style="--i:21">R</text><text class="t a ch" x="590.47" y="297" font-size="150" style="--i:22">D</text><text class="t a ch" x="664.45" y="297" font-size="150" style="--i:23">I</text><text class="t a ch" x="698.44" y="297" font-size="150" style="--i:24">N</text><text class="t a ch" x="773.14" y="297" font-size="150" style="--i:25">Á</text><text class="t a ch" x="845.94" y="297" font-size="150" style="--i:26">R</text><text class="t a ch" x="917.42" y="297" font-size="150" style="--i:27">I</text><text class="t a ch" x="951.41" y="297" font-size="150" style="--i:28">O</text><text class="t a ch" x="1024.36" y="297" font-size="150" style="--i:29">.</text></g></g>
         </svg>
         <svg class="hero__headline--tablet" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 302" role="img" aria-label="Seu carro merece o extraordinário">
           <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;stroke-width:5;stroke-linejoin:round;paint-order:stroke}.hl .w{fill:#0d0d0d;stroke:#0d0d0d}.hl .a{fill:#ffbf4b;stroke:#ffbf4b}</style>
-          <g class="hl"><text class="t w" x="570" y="136" font-size="150" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="297" font-size="150" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
+          <g class="hl"><g transform="translate(77.5 0) scale(0.91892 1)"><text class="t w ch" x="0" y="136" font-size="150" style="--i:0">S</text><text class="t w ch" x="69.2" y="136" font-size="150" style="--i:1">E</text><text class="t w ch" x="130.95" y="136" font-size="150" style="--i:2">U</text><text class="t w ch" x="237.16" y="136" font-size="150" style="--i:3">C</text><text class="t w ch" x="308.27" y="136" font-size="150" style="--i:4">A</text><text class="t w ch" x="381.08" y="136" font-size="150" style="--i:5">R</text><text class="t w ch" x="452.56" y="136" font-size="150" style="--i:6">R</text><text class="t w ch" x="524.05" y="136" font-size="150" style="--i:7">O</text><text class="t w ch" x="632.14" y="136" font-size="150" style="--i:8">M</text><text class="t w ch" x="744.06" y="136" font-size="150" style="--i:9">E</text><text class="t w ch" x="805.8" y="136" font-size="150" style="--i:10">R</text><text class="t w ch" x="877.28" y="136" font-size="150" style="--i:11">E</text><text class="t w ch" x="939.03" y="136" font-size="150" style="--i:12">C</text><text class="t w ch" x="1010.16" y="136" font-size="150" style="--i:13">E</text></g><g transform="translate(37.5 0) scale(1.00599 1)"><text class="t a ch" x="0" y="297" font-size="150" style="--i:14">O</text><text class="t a ch" x="108.09" y="297" font-size="150" style="--i:15">E</text><text class="t a ch" x="169.84" y="297" font-size="150" style="--i:16">X</text><text class="t a ch" x="242.42" y="297" font-size="150" style="--i:17">T</text><text class="t a ch" x="301.75" y="297" font-size="150" style="--i:18">R</text><text class="t a ch" x="373.23" y="297" font-size="150" style="--i:19">A</text><text class="t a ch" x="446.03" y="297" font-size="150" style="--i:20">O</text><text class="t a ch" x="518.98" y="297" font-size="150" style="--i:21">R</text><text class="t a ch" x="590.47" y="297" font-size="150" style="--i:22">D</text><text class="t a ch" x="664.45" y="297" font-size="150" style="--i:23">I</text><text class="t a ch" x="698.44" y="297" font-size="150" style="--i:24">N</text><text class="t a ch" x="773.14" y="297" font-size="150" style="--i:25">Á</text><text class="t a ch" x="845.94" y="297" font-size="150" style="--i:26">R</text><text class="t a ch" x="917.42" y="297" font-size="150" style="--i:27">I</text><text class="t a ch" x="951.41" y="297" font-size="150" style="--i:28">O</text><text class="t a ch" x="1024.36" y="297" font-size="150" style="--i:29">.</text></g></g>
         </svg>
         <svg class="hero__headline--mobile" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1140 302" role="img" aria-label="Seu carro merece o extraordinário">
           <style>.hl .t{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;stroke-width:5;stroke-linejoin:round;paint-order:stroke}.hl .w{fill:#0d0d0d;stroke:#0d0d0d}.hl .a{fill:#ffbf4b;stroke:#ffbf4b}</style>
-          <g class="hl"><text class="t w" x="570" y="136" font-size="150" textLength="985" lengthAdjust="spacingAndGlyphs" text-anchor="middle">SEU CARRO MERECE</text><text class="t a" x="570" y="297" font-size="150" textLength="1065" lengthAdjust="spacingAndGlyphs" text-anchor="middle">O EXTRAORDINÁRIO.</text></g>
+          <g class="hl"><g transform="translate(77.5 0) scale(0.91892 1)"><text class="t w ch" x="0" y="136" font-size="150" style="--i:0">S</text><text class="t w ch" x="69.2" y="136" font-size="150" style="--i:1">E</text><text class="t w ch" x="130.95" y="136" font-size="150" style="--i:2">U</text><text class="t w ch" x="237.16" y="136" font-size="150" style="--i:3">C</text><text class="t w ch" x="308.27" y="136" font-size="150" style="--i:4">A</text><text class="t w ch" x="381.08" y="136" font-size="150" style="--i:5">R</text><text class="t w ch" x="452.56" y="136" font-size="150" style="--i:6">R</text><text class="t w ch" x="524.05" y="136" font-size="150" style="--i:7">O</text><text class="t w ch" x="632.14" y="136" font-size="150" style="--i:8">M</text><text class="t w ch" x="744.06" y="136" font-size="150" style="--i:9">E</text><text class="t w ch" x="805.8" y="136" font-size="150" style="--i:10">R</text><text class="t w ch" x="877.28" y="136" font-size="150" style="--i:11">E</text><text class="t w ch" x="939.03" y="136" font-size="150" style="--i:12">C</text><text class="t w ch" x="1010.16" y="136" font-size="150" style="--i:13">E</text></g><g transform="translate(37.5 0) scale(1.00599 1)"><text class="t a ch" x="0" y="297" font-size="150" style="--i:14">O</text><text class="t a ch" x="108.09" y="297" font-size="150" style="--i:15">E</text><text class="t a ch" x="169.84" y="297" font-size="150" style="--i:16">X</text><text class="t a ch" x="242.42" y="297" font-size="150" style="--i:17">T</text><text class="t a ch" x="301.75" y="297" font-size="150" style="--i:18">R</text><text class="t a ch" x="373.23" y="297" font-size="150" style="--i:19">A</text><text class="t a ch" x="446.03" y="297" font-size="150" style="--i:20">O</text><text class="t a ch" x="518.98" y="297" font-size="150" style="--i:21">R</text><text class="t a ch" x="590.47" y="297" font-size="150" style="--i:22">D</text><text class="t a ch" x="664.45" y="297" font-size="150" style="--i:23">I</text><text class="t a ch" x="698.44" y="297" font-size="150" style="--i:24">N</text><text class="t a ch" x="773.14" y="297" font-size="150" style="--i:25">Á</text><text class="t a ch" x="845.94" y="297" font-size="150" style="--i:26">R</text><text class="t a ch" x="917.42" y="297" font-size="150" style="--i:27">I</text><text class="t a ch" x="951.41" y="297" font-size="150" style="--i:28">O</text><text class="t a ch" x="1024.36" y="297" font-size="150" style="--i:29">.</text></g></g>
         </svg>
       </h1>
 
