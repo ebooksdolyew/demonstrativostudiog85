@@ -247,15 +247,12 @@ body.pointer-fine .spotlight{opacity:1}
 .hero__inner>:nth-child(5){animation-delay:.58s}
 .hero__bar{display:none}
 
-/* empilhamento: a foto (.hero__media) rola com a página; a hero, agora
-   transparente, fica presa ao topo com os textos fixos; o marquee e a
-   seção "Sobre" sobem colados na borda de baixo da foto e cobrem os textos.
-   Em telas mais baixas que a hero ela só prende depois de mostrar tudo. */
-.hero-stack{position:relative;--hero-h:max(640px,100svh)}
-.hero__media{position:absolute;top:0;left:0;width:100%;height:var(--hero-h);
-  overflow:hidden;isolation:isolate;z-index:0;background:#fdfdfd}
-.hero-stack>.hero{position:sticky;top:min(0px,calc(100svh - 640px));z-index:0;background:none}
-.hero-stack>:not(.hero):not(.hero__media){position:relative;z-index:1}
+/* empilhamento: a hero fica presa ao topo (textos fixos) e o marquee e a
+   seção "Sobre" sobem por cima dela. Em telas mais baixas que a hero ela
+   só prende depois de mostrar o rodapé (top negativo). */
+.hero-stack{position:relative}
+.hero-stack>.hero{position:sticky;top:min(0px,calc(100svh - 640px));z-index:0}
+.hero-stack>:not(.hero){position:relative;z-index:1}
 .hero-stack>.checker{box-shadow:0 -28px 60px -12px rgba(0,0,0,.45)}
 @keyframes heroBg{from{transform:scale(1.06)}to{transform:none}}
 .hero__bg img{animation:heroBg 2.4s var(--ease) forwards}
@@ -285,7 +282,6 @@ body.pointer-fine .spotlight{opacity:1}
 
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
 @media(max-width:1100px) and (min-width:641px){
-  .hero-stack{--hero-h:100svh}
   .hero{min-height:100svh;align-items:flex-start}
   /* textos sobre o topo branco da foto; o véu só reforça até o CTA.
      A foto desce um pouco (o topo dela é branco como o fundo, sem emenda)
@@ -302,7 +298,6 @@ body.pointer-fine .spotlight{opacity:1}
 
 /* celular 9:16 */
 @media(max-width:640px){
-  .hero-stack{--hero-h:100svh}
   .hero{min-height:100svh;align-items:flex-start}
   .hero__bg{top:12%}
   .hero__shade{background:linear-gradient(180deg,rgba(253,253,253,.9) 0%,rgba(253,253,253,.75) 36%,rgba(253,253,253,0) 54%)}
@@ -967,19 +962,17 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 </header>
 
 <!-- ============================ HERO ============================ -->
-<!-- empilhamento: a foto rola normalmente, os textos da hero ficam presos
-     e o marquee + "Sobre" sobem por cima -->
+<!-- empilhamento: a hero fica presa e o marquee + "Sobre" sobem por cima -->
 <div class="hero-stack">
-<!-- fundo: um WebP por dispositivo (assets/hero/webp) -->
-<div class="hero__media">
+<section class="hero" id="topo" aria-label="Studio G85 Estética Automotiva">
+
+  <!-- fundo: um WebP por dispositivo (assets/hero/webp) -->
   <picture class="hero__bg">
     <source media="(max-width:640px)" srcset="assets/hero/webp/hero-mobile-9x16.webp">
     <source media="(max-width:1100px)" srcset="assets/hero/webp/hero-tablet-ipad-3x4.webp">
     <img src="assets/hero/webp/hero-desktop-16x9.webp" alt="Veículo no box de detalhamento do Studio G85" fetchpriority="high" decoding="async">
   </picture>
   <div class="hero__shade" aria-hidden="true"></div>
-</div>
-<section class="hero" id="topo" aria-label="Studio G85 Estética Automotiva">
 
   <div class="hero__content">
     <div class="hero__inner">
