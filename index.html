@@ -125,7 +125,7 @@ body.pointer-fine .spotlight{opacity:1}
   backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%)}
 .nav__links a{
   font-family:var(--f-display);font-size:11.5px;font-weight:600;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--paper-dim);position:relative;padding:6px 0;transition:color .35s;
+  text-transform:uppercase;color:var(--paper-dim);position:relative;padding:6px 0;transition:color .35s;white-space:nowrap;
 }
 .nav__links a::after{
   content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--gold);
@@ -447,7 +447,6 @@ section{position:relative}
    COMO FUNCIONA — linha do tempo com números vazados
    ============================================================ */
 #como-funciona{background:linear-gradient(180deg,var(--ink) 0%,var(--ink-2) 100%);overflow:hidden}
-#como-funciona .ghostnum{right:-3vw;top:4%}
 .flow{list-style:none;counter-reset:passo;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line)}
 @media(max-width:900px){.flow{grid-template-columns:repeat(2,1fr)}}
@@ -493,8 +492,6 @@ section{position:relative}
 .tab::after{content:'';position:absolute;left:0;bottom:0;height:3px;width:100%;background:#f2c230;
   transform:scaleX(0);transform-origin:0 50%;transition:transform .6s var(--ease)}
 .tab:hover::after{transform:scaleX(.35)}
-.tab i{font-style:normal;font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.2em;
-  color:var(--gold);font-variant-numeric:tabular-nums}
 .tab b{font-family:var(--f-display);font-size:clamp(14px,1.45vw,18px);font-weight:800;text-transform:uppercase;
   letter-spacing:-.01em;line-height:1.1;transition:color .4s}
 .tab span{font-size:12px;color:var(--paper-mute)}
@@ -502,7 +499,6 @@ section{position:relative}
 .tab[aria-selected="true"]{background:#0b0b0c;color:#f4f2ee}
 .tab[aria-selected="true"]::after{transform:scaleX(1)}
 .tab[aria-selected="true"] b{color:#f4f2ee}
-.tab[aria-selected="true"] i{color:#f2c230}
 .tab[aria-selected="true"] span{color:#a9a49c}
 .tab:focus-visible,.chip:focus-visible,.galfilter button:focus-visible,.gal figure:focus-visible{outline:2px solid #f2c230;outline-offset:3px}
 
@@ -697,6 +693,39 @@ section{position:relative}
 .card__who span{font-size:11.5px;color:var(--paper-mute)}
 .rail__hint{margin-top:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-mute);display:flex;align-items:center;gap:12px}
 .rail__hint::after{content:'';width:44px;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+
+
+/* ============================================================
+   ASSINATURA — plano G85 (conteúdo do plano ainda a definir)
+   ============================================================ */
+#assinatura{background:radial-gradient(70% 60% at 85% 40%,rgba(242,194,48,.10),transparent 70%),linear-gradient(180deg,var(--ink),var(--ink-2));overflow:hidden}
+.plan{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);align-items:center}
+@media(max-width:900px){.plan{grid-template-columns:1fr}}
+.plan .sechead{margin-bottom:0}
+.plan__card{position:relative;border-radius:12px;padding:clamp(28px,3.6vw,46px);
+  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));
+  border:1px solid rgba(242,194,48,.28);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 40px 90px -50px rgba(242,194,48,.45),0 30px 70px -40px #000;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.plan__card::before{content:'';position:absolute;left:28px;right:28px;top:-1px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.plan__ribbon{position:absolute;top:22px;right:22px;font-family:var(--f-display);font-size:10px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:#000;background:var(--gold);padding:7px 12px;border-radius:99px}
+.plan__tag{font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.plan__card h3{margin-top:14px;font-family:var(--f-display);font-weight:800;text-transform:uppercase;
+  font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.05;letter-spacing:-.02em}
+.plan__price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:22px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.plan__price b{font-family:var(--f-display);font-size:clamp(2rem,4vw,2.8rem);font-weight:800;line-height:1;color:var(--gold)}
+.plan__list{list-style:none;display:grid;gap:14px;margin:26px 0 32px}
+.plan__list li{display:flex;gap:14px;align-items:center;font-size:15px;color:var(--paper-dim)}
+.plan__list li::before{content:'';flex:0 0 7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.plan__card .btn{width:100%;justify-content:center;padding:18px 26px}
+.plan__fine{margin-top:16px;font-size:12px;color:var(--paper-mute);text-align:center}
+/* campo ainda não definido pelo cliente: aparece como marcação tracejada */
+.tbd{display:inline-block;border:1px dashed rgba(242,194,48,.5);border-radius:4px;padding:3px 10px;
+  font-family:var(--f-body);font-size:13px;font-weight:500;letter-spacing:.02em;text-transform:none;
+  color:var(--paper-mute);background:rgba(242,194,48,.05)}
+.plan__price .tbd{font-size:14px}
 
 /* ============================================================
    DÚVIDAS — título fixo ao lado das perguntas
@@ -924,8 +953,8 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     <a href="#contato">Contato</a>
   </nav>
   <span class="nav__divider" aria-hidden="true"></span>
-  <a class="btn btn--pill btn--nav" href="https://wa.me/558598484104?text=Ol%C3%A1,%20vim%20pelo%20site!" target="_blank" rel="noopener">
-    <span>Solicitar orçamento</span>
+  <a class="btn btn--pill btn--nav" href="#assinatura">
+    <span>Vire assinante</span>
   </a>
   <button class="nav__burger" id="burger" aria-label="Abrir menu"><i></i><i></i><i></i></button>
 </header>
@@ -989,10 +1018,10 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
       <div class="hero__actions">
         <!-- CTA (assets/hero/svg/shared/cta.svg) -->
-        <a class="hero__cta" href="https://wa.me/558598484104?text=Ol%C3%A1,%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20o%20meu%20ve%C3%ADculo!" target="_blank" rel="noopener" aria-label="Agendar avaliação pelo WhatsApp">
+        <a class="hero__cta" href="#assinatura" aria-label="Vire assinante">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 71" aria-hidden="true" focusable="false">
             <style>.cta .bg{fill:#f8bc53}.cta .label{font-family:Montserrat,Arial,sans-serif;font-size:18.5px;font-weight:700;letter-spacing:2.4px;fill:#0d0d0d}.cta .arrow{fill:none;stroke:#0d0d0d;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}</style>
-            <g class="cta"><rect class="bg" width="372" height="71" rx="4"/><text class="label" x="41" y="42">AGENDAR AVALIAÇÃO</text><path class="arrow" d="M325 36h18M336 29l7 7-7 7"/></g>
+            <g class="cta"><rect class="bg" width="372" height="71" rx="4"/><text class="label" x="68" y="42">VIRE ASSINANTE</text><path class="arrow" d="M286 36h18M297 29l7 7-7 7"/></g>
           </svg>
         </a>
       </div>
@@ -1058,7 +1087,6 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
 <!-- ============================ COMO FUNCIONA ============================ -->
 <section id="como-funciona" class="pad">
-  <div class="ghostnum" aria-hidden="true">06</div>
   <div class="shell">
     <div class="sechead r">
       <p class="eyebrow">Como funciona</p>
@@ -1121,10 +1149,10 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 
     <div class="r">
       <div class="tabs" id="svc-tabs" role="tablist" aria-label="Serviços">
-        <button class="tab" role="tab" id="t-vitrificacao" aria-controls="p-vitrificacao" aria-selected="true" data-svc="vitrificacao"><i>01</i><b>Vitrificação</b><span>Pintura, vidros e couro</span></button>
-        <button class="tab" role="tab" id="t-peliculas" aria-controls="p-peliculas" aria-selected="false" tabindex="-1" data-svc="peliculas"><i>02</i><b>Window&nbsp;Blue</b><span>Películas para os vidros</span></button>
-        <button class="tab" role="tab" id="t-ppf" aria-controls="p-ppf" aria-selected="false" tabindex="-1" data-svc="ppf"><i>03</i><b>PPF</b><span>Película de proteção</span></button>
-        <button class="tab" role="tab" id="t-lavagens" aria-controls="p-lavagens" aria-selected="false" tabindex="-1" data-svc="lavagens"><i>04</i><b>Lavagens técnicas</b><span>Manutenção</span></button>
+        <button class="tab" role="tab" id="t-vitrificacao" aria-controls="p-vitrificacao" aria-selected="true" data-svc="vitrificacao"><b>Vitrificação</b><span>Pintura, vidros e couro</span></button>
+        <button class="tab" role="tab" id="t-peliculas" aria-controls="p-peliculas" aria-selected="false" tabindex="-1" data-svc="peliculas"><b>Window&nbsp;Blue</b><span>Películas para os vidros</span></button>
+        <button class="tab" role="tab" id="t-ppf" aria-controls="p-ppf" aria-selected="false" tabindex="-1" data-svc="ppf"><b>PPF</b><span>Película de proteção</span></button>
+        <button class="tab" role="tab" id="t-lavagens" aria-controls="p-lavagens" aria-selected="false" tabindex="-1" data-svc="lavagens"><b>Lavagens técnicas</b><span>Manutenção</span></button>
       </div>
 
       <article class="panel" role="tabpanel" id="p-vitrificacao" aria-labelledby="t-vitrificacao" data-ghost="Vitrificação">
@@ -1559,8 +1587,44 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   </div>
 </section>
 
+<!-- ============================ ASSINATURA ============================ -->
+<!-- PREENCHER: nome do plano, valor, periodicidade e benefícios (campos .tbd) -->
+<section id="assinatura" class="pad">
+  <div class="shell">
+    <div class="plan">
+      <div class="r-l">
+        <div class="sechead">
+          <p class="eyebrow">Assinatura</p>
+          <h2 class="lines">
+            <span><i>Vire assinante</i></span>
+            <span><i>do <em>Studio&nbsp;G85</em></i></span>
+          </h2>
+          <p>Um plano para manter o seu carro cuidado de forma contínua, com o mesmo critério técnico
+          de cada serviço avulso. <b>Os detalhes do plano estão sendo finalizados.</b> Chame no WhatsApp
+          para saber mais.</p>
+        </div>
+      </div>
+
+      <article class="plan__card r-r">
+        <span class="plan__ribbon">Em breve</span>
+        <span class="plan__tag">Plano G85</span>
+        <h3>Nome do plano<br><span class="tbd">a definir</span></h3>
+        <div class="plan__price"><b>R$</b><span class="tbd">Valor e periodicidade a definir</span></div>
+        <ul class="plan__list">
+          <li><span class="tbd">Benefício a definir</span></li>
+          <li><span class="tbd">Benefício a definir</span></li>
+          <li><span class="tbd">Benefício a definir</span></li>
+          <li><span class="tbd">Benefício a definir</span></li>
+        </ul>
+        <a class="btn" href="https://wa.me/558598484104?text=Ol%C3%A1,%20quero%20ser%20assinante%20do%20Studio%20G85!" target="_blank" rel="noopener"><span>Quero ser assinante</span></a>
+        <p class="plan__fine">Condições, valores e benefícios serão divulgados em breve.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ============================ DÚVIDAS ============================ -->
-<section id="duvidas" class="pad">
+<section id="duvidas" class="pad light">
   <div class="shell">
     <div class="faqwrap">
       <div class="sechead r-l">
@@ -1630,7 +1694,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
           <div><dt>Horário</dt><dd>Seg a sex · 08h às 18h<span>Sábado · 08h às 12h</span></dd></div>
         </dl>
         <div class="bcard__actions">
-          <a class="btn" href="https://wa.me/558598484104?text=Ol%C3%A1,%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20o%20meu%20ve%C3%ADculo!" target="_blank" rel="noopener"><span>Agendar avaliação</span></a>
+          <a class="btn" href="#assinatura"><span>Vire assinante</span></a>
           <a class="btn btn--ghost" href="https://maps.app.goo.gl/q9YaERKTfQfvr2jG8" target="_blank" rel="noopener"><span>Como chegar</span></a>
         </div>
       </div>
@@ -1660,6 +1724,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
         <a href="#servicos">Serviços</a>
         <a href="#trabalhos">Trabalhos</a>
         <a href="#avaliacoes">Avaliações</a>
+        <a href="#assinatura">Assinatura</a>
         <a href="https://www.instagram.com/studio.g85" target="_blank" rel="noopener">Instagram</a>
         <a href="https://wa.me/558598484104" target="_blank" rel="noopener">WhatsApp</a>
       </nav>
