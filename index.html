@@ -567,10 +567,30 @@ section{position:relative}
 .svx__item.in .panel__tip{opacity:1;transform:none}
 @media(min-width:561px){.svx .facets{grid-template-columns:1fr 1fr}}
 
+.svx__mbar{display:none}
 @media(max-width:900px){
   .svx{grid-template-columns:1fr}
   .svx__stage{display:none}
   .svx__list{gap:28px}
+  .svx__item{scroll-margin-top:132px}
+  /* barra fixa em vidro: nome do serviço atual (preenche com a leitura) + segmentos */
+  .svx__mbar{display:flex;align-items:center;gap:16px;position:sticky;top:62px;z-index:6;margin-bottom:-6px;
+    padding:13px 18px;border-radius:99px;background:rgba(251,250,247,.86);border:1px solid var(--line);
+    backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);
+    box-shadow:0 16px 34px -22px rgba(0,0,0,.45)}
+  .svx__mname{position:relative;flex:1;min-width:0;height:18px;overflow:hidden}
+  .svx__mname b{position:absolute;inset:0;font-family:var(--f-display);font-size:13.5px;font-weight:800;
+    text-transform:uppercase;letter-spacing:.04em;line-height:18px;white-space:nowrap;color:transparent;
+    background:linear-gradient(90deg,#0b0b0c,#0b0b0c 70%,#9a6f04) 0 0/calc(var(--p,0) * 100%) 100% no-repeat,
+               linear-gradient(rgba(10,10,12,.32),rgba(10,10,12,.32));
+    -webkit-background-clip:text;background-clip:text;
+    opacity:0;transform:translateY(100%);transition:opacity .5s var(--ease),transform .6s var(--ease)}
+  .svx__mname b.on{opacity:1;transform:none}
+  .svx__mname b.past{transform:translateY(-100%)}
+  .svx__msegs{display:flex;gap:6px;flex:0 0 auto}
+  .svx__seg{position:relative;width:26px;height:4px;border-radius:2px;background:rgba(10,10,12,.14);overflow:hidden}
+  .svx__seg::after{content:'';position:absolute;inset:-10px -3px}
+  .svx__seg i{position:absolute;inset:0;background:#f2c230;transform:scaleX(var(--f,0));transform-origin:0 50%}
 }
 
 .chip:focus-visible,.galfilter button:focus-visible,.gal figure:focus-visible{outline:2px solid #f2c230;outline-offset:3px}
@@ -794,7 +814,7 @@ section{position:relative}
 /* ============================================================
    DÚVIDAS — título fixo ao lado das perguntas
    ============================================================ */
-#duvidas{background:var(--ink-2);overflow:visible}
+#duvidas{background:var(--ink-2);overflow:clip}
 .faqwrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,6vw,90px);align-items:start}
 @media(max-width:900px){.faqwrap{grid-template-columns:1fr}}
 .faqwrap .sechead{position:sticky;top:110px;margin-bottom:0}
@@ -907,7 +927,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
 .hs__foot{display:flex;align-items:center;gap:24px;margin-top:24px}
 .hs__foot .note{margin:0}
 .hs__bar{display:none}
-.hs-on{padding:0;height:var(--hs-h,auto)}
+.hs.hs-on{padding:0;height:var(--hs-h,auto)}
 .hs-on .hs__pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
 .hs-on .hs__shell{padding-top:60px}
 .hs-on .hs__track{display:flex;align-items:stretch;gap:clamp(36px,4vw,64px);width:max-content;
@@ -921,6 +941,17 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
   opacity:calc(1 - var(--e,0) * .55);transform-origin:0 50%}
 .hs-on .hs__bar{display:block;position:relative;flex:1;height:2px;background:var(--line)}
 .hs-on .hs__bar b{position:absolute;inset:0;background:var(--gold);transform:scaleX(var(--hp,0));transform-origin:0 50%}
+
+@media(max-width:900px){
+  .hs-on .hs__shell{padding-top:64px}
+  .hs-on .hs__track{gap:18px}
+  .hs-on .hs__intro{flex-basis:min(84vw,560px)}
+  .hs-on .hs__intro h2{font-size:clamp(1.9rem,8vw,3rem)}
+  .hs-on .flow li{flex-basis:min(74vw,360px);min-height:min(56svh,420px);margin-left:0;border-radius:4px}
+  .hs-on .flow li+li{margin-left:12px}
+  .hs__foot{flex-wrap:wrap;gap:12px 20px}
+  .hs-on .hs__bar{flex:1 1 100%}
+}
 
 /* Trabalhos: colunas da galeria em velocidades diferentes */
 .gal figure{translate:0 var(--gy,0px)}
@@ -1315,6 +1346,21 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       </aside>
 
       <div class="svx__list">
+        <!-- celular e tablet em pé: barra fixa com o serviço atual e o progresso -->
+        <div class="svx__mbar" aria-hidden="true">
+          <span class="svx__mname">
+            <b data-i="0">Vitrificação</b>
+            <b data-i="1">Window Blue</b>
+            <b data-i="2">PPF</b>
+            <b data-i="3">Lavagens técnicas</b>
+          </span>
+          <span class="svx__msegs">
+            <a href="#svc-vitrificacao" class="svx__seg" data-i="0" tabindex="-1"><i></i></a>
+            <a href="#svc-peliculas" class="svx__seg" data-i="1" tabindex="-1"><i></i></a>
+            <a href="#svc-ppf" class="svx__seg" data-i="2" tabindex="-1"><i></i></a>
+            <a href="#svc-lavagens" class="svx__seg" data-i="3" tabindex="-1"><i></i></a>
+          </span>
+        </div>
       <article class="panel svx__item" id="svc-vitrificacao" data-i="0">
         <header class="panel__head">
           <div>
@@ -1989,7 +2035,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     var hsTrack = hs && hs.querySelector('.hs__track');
     var hsShell = hs && hs.querySelector('.hs__shell');
     var hsCards = hs ? $$('.flow li', hs) : [];
-    var mqHs = window.matchMedia('(min-width:901px) and (min-height:620px)');
+    var mqHs = window.matchMedia('(min-height:560px)');
     var hsDist = 0;
     function hsSetup(){
       if(!hs) return;
@@ -2046,7 +2092,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       }
 
       /* galeria: cada coluna anda numa velocidade */
-      if(gal && window.innerWidth > 620){
+      if(gal){
         var rg = gal.getBoundingClientRect();
         if(rg.bottom > -200 && rg.top < vh + 200){
           var pg = clamp((vh - rg.top) / (vh + rg.height)) - 0.5;
@@ -2055,10 +2101,11 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
           var cols = lefts.slice().sort(function(a,b){ return a - b; }).filter(function(v,i,a){ return !i || v !== a[i-1]; });
           vis.forEach(function(f, i){
             var c = cols.indexOf(lefts[i]);
-            f.style.setProperty('--gy', (pg * colSpeed[c % colSpeed.length] * 160).toFixed(1) + 'px');
+            var amp = window.innerWidth > 620 ? 160 : 90;
+            f.style.setProperty('--gy', (pg * (window.innerWidth > 620 ? colSpeed[c % colSpeed.length] : (c ? 0.6 : -0.4)) * amp).toFixed(1) + 'px');
           });
         }
-      } else if(gal){ galFigs.forEach(function(f){ f.style.removeProperty('--gy'); }); }
+      }
 
       /* citação: linhas se cruzam e a foto se aproxima */
       if(brk){
@@ -2188,6 +2235,8 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     var items = $$('.svx__item', svx);
     var links = $$('.svx__index a', svx);
     var words = $$('.svx__word', svx);
+    var mnames = $$('.svx__mname b', svx);
+    var msegs = $$('.svx__seg', svx);
     var stage = svx.querySelector('.svx__stage');
     var wordsBox = svx.querySelector('.svx__words');
     var active = -1, sticking = false;
@@ -2226,6 +2275,8 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
       var total = (cur + curP) / items.length;
       svx.style.setProperty('--t', total.toFixed(3));
       words.forEach(function(wd, i){ if(i === cur) wd.style.setProperty('--p', curP.toFixed(3)); });
+      mnames.forEach(function(m, i){ if(i === cur) m.style.setProperty('--p', curP.toFixed(3)); });
+      msegs.forEach(function(sg, i){ sg.style.setProperty('--f', i < cur ? 1 : i === cur ? curP.toFixed(3) : 0); });
       if(cur !== active){
         active = cur;
         items.forEach(function(it, i){ it.classList.toggle('on', i === cur); });
@@ -2238,6 +2289,10 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
           wd.classList.toggle('on', i === cur);
           wd.classList.toggle('past', i < cur);
         });
+        mnames.forEach(function(m, i){
+          m.classList.toggle('on', i === cur);
+          m.classList.toggle('past', i < cur);
+        });
       }
     }
     function onScroll(){ if(!sticking){ sticking = true; requestAnimationFrame(update); } }
@@ -2247,7 +2302,7 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     fit(); update();
 
     /* índice: rola até a ficha */
-    links.forEach(function(a){
+    links.concat(msegs).forEach(function(a){
       a.addEventListener('click', function(e){
         e.preventDefault();
         document.querySelector(a.getAttribute('href')).scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'start'});
