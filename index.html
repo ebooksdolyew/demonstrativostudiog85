@@ -433,6 +433,19 @@ section{position:relative}
   background:rgba(242,194,48,.11);filter:blur(38px)}
 .vpres video{position:relative;z-index:1;width:100%;aspect-ratio:9/16;object-fit:cover;
   border-radius:5px;border:1px solid var(--line-2);display:block;box-shadow:0 40px 90px -44px #000}
+/* botão de som — só aparece quando o arquivo do vídeo tem áudio */
+.vpres__sound{position:absolute;left:14px;bottom:14px;z-index:2;display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--f-display);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;background:rgba(4,4,4,.55);border:1px solid rgba(255,255,255,.34);border-radius:99px;
+  padding:10px 16px;cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:background .4s,color .4s,border-color .4s}
+.vpres__sound[hidden]{display:none}
+.vpres__sound:hover,.vpres__sound[aria-pressed="true"]{background:#f2c230;border-color:#f2c230;color:#000}
+.vpres__sound:focus-visible{outline:2px solid #f2c230;outline-offset:3px}
+.vpres__sound svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.vpres__sound .on{display:none}
+.vpres__sound[aria-pressed="true"] .on{display:block}
+.vpres__sound[aria-pressed="true"] .off{display:none}
 .badge-float{
   position:absolute;right:max(-14px,calc(50% - 230px));bottom:-24px;z-index:2;background:var(--ink-3);
   border:1px solid var(--line-2);padding:18px 22px;border-radius:3px;
@@ -1074,6 +1087,11 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
           <video src="assets/videos/apresentacao-g85.webm" poster="assets/galeria/suv-creta.webp"
                  autoplay loop muted playsinline preload="metadata"
                  aria-label="Vídeo de apresentação do Studio G85"></video>
+          <button type="button" class="vpres__sound" id="presSound" aria-pressed="false" hidden>
+            <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M17 9l4 6M21 9l-4 6"/></svg>
+            <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+            <span>Ativar som</span>
+          </button>
         </div>
         <div class="badge-float">
           <strong>5,0<small>★★★★★</small></strong>
@@ -1820,6 +1838,38 @@ footer{background:#000;border-top:1px solid var(--line);padding:60px 0 40px}
     });
   }, {threshold:0.14, rootMargin:'0px 0px -8% 0px'});
   $$('.r,.r-l,.r-r,.r-s,.lines').forEach(function(el){ io.observe(el); });
+
+  /* ---------- VÍDEO DE APRESENTAÇÃO: SOM ---------- */
+  (function(){
+    var pv = document.querySelector('.vpres video');
+    var ps = document.getElementById('presSound');
+    if(!pv || !ps) return;
+    var label = ps.querySelector('span');
+
+    /* o navegador só deixa o vídeo começar sozinho se estiver mudo; o botão
+       só aparece quando o arquivo tem faixa de áudio */
+    function hasAudio(){
+      return pv.mozHasAudio || (pv.audioTracks && pv.audioTracks.length > 0) || pv.webkitAudioDecodedByteCount > 0;
+    }
+    function check(){
+      if(hasAudio()){ ps.hidden = false; pv.removeEventListener('timeupdate', check); }
+      else if(pv.currentTime > 3) pv.removeEventListener('timeupdate', check);
+    }
+    pv.addEventListener('timeupdate', check);
+
+    function setSound(on){
+      pv.muted = !on;
+      ps.setAttribute('aria-pressed', on ? 'true' : 'false');
+      label.textContent = on ? 'Desativar som' : 'Ativar som';
+      if(on){ var p = pv.play(); if(p && p.catch) p.catch(function(){}); }
+    }
+    ps.addEventListener('click', function(){ setSound(pv.muted); });
+
+    /* ao sair da tela, volta a ficar mudo para não tocar som escondido */
+    new IntersectionObserver(function(en){
+      if(!en[0].isIntersecting && !pv.muted) setSound(false);
+    }, {threshold:0}).observe(pv);
+  })();
 
   /* ---------- SERVIÇOS: ABAS ---------- */
   var tabs = $$('.tab');
