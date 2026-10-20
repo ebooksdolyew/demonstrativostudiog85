@@ -284,7 +284,7 @@ body.pointer-fine .spotlight{opacity:1}
 
   /* proporções da referência (desktop 1672×941): --u = 1px da referência,
      escala pela largura e pela altura da tela, o que for menor */
-  .hero__content{width:88vw;padding:calc(85 * var(--u)) 0}
+  .hero__content{width:88vw;padding:calc(58 * var(--u)) 0 calc(112 * var(--u))}
   .hero__inner{width:100%;gap:0}
   .hero__headline{width:calc(1125 * var(--u))}
   .hero__bar{display:block;width:calc(88 * var(--u));height:max(3px,calc(5 * var(--u)));
@@ -294,6 +294,13 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__inner .hero__location{width:calc(260 * var(--u));margin-top:calc(10 * var(--u))}
   .hero__actions{margin-top:calc(24 * var(--u))}
   .hero__cta{width:calc(310 * var(--u))}
+}
+
+/* tablet e celular: o título passa da largura da coluna (--hw) e fica
+   centralizado com margens negativas iguais */
+@media(max-width:1100px){
+  .hero__inner>.hero__headline{width:var(--hw);max-width:none;justify-self:start;
+    margin-left:calc(50% - var(--hw) / 2);margin-right:calc(50% - var(--hw) / 2)}
 }
 
 /* tablet 3:4 (mesmo ponto em que o nav vira burger) */
@@ -308,6 +315,7 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__inner{width:min(82%,840px);margin:0 auto;justify-items:center;gap:20px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
   .hero__headline .hero__headline--tablet,.hero__desc .hero__desc--tablet{display:block}
+  .hero__inner>.hero__headline{--hw:calc(min(88vw,860px) * 1.0704)}
   .hero__desc{width:min(100%,580px)}
   .hero__actions{justify-content:center}
 }
@@ -321,6 +329,7 @@ body.pointer-fine .spotlight{opacity:1}
   .hero__inner{width:100%;justify-items:center;gap:17px}
   .hero__headline .hero__headline--desktop,.hero__desc .hero__desc--desktop{display:none}
   .hero__headline .hero__headline--mobile,.hero__desc .hero__desc--mobile{display:block}
+  .hero__inner>.hero__headline{--hw:calc((100vw - 28px) * 1.0704)}
   .hero__desc{width:100%}
   .hero__inner .hero__location{width:190px}
   .hero__actions{justify-content:center}
